@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import phoneImage from './assets/smartphone.svg';
+import Onboarding from './Onboarding';
 
 interface Review {
   id: number;
@@ -18,6 +19,14 @@ function App() {
   const [results, setResults] = useState<Result[] | null>(null);
   const [minPrice, setMinPrice] = useState<number | null>(null);
   const [maxPrice, setMaxPrice] = useState<number | null>(null);
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  useEffect(() => {
+    const seen = localStorage.getItem('hasSeenOnboarding');
+    if (!seen) {
+      setShowOnboarding(true);
+    }
+  }, []);
 
   const product = {
     name: '스마트폰 XYZ',
@@ -59,7 +68,9 @@ function App() {
   };
 
   return (
-    <main className="p-4 md:p-8">
+    <>
+      {showOnboarding && <Onboarding onFinish={() => setShowOnboarding(false)} />}
+      <main className="p-4 md:p-8">
       <h1 className="mb-2 text-2xl font-bold">가격 매칭</h1>
       <p className="mb-4 text-gray-600">상품 가격을 비교해 보세요.</p>
       <form onSubmit={handleSubmit} className="mb-6 flex items-center space-x-2">
@@ -152,6 +163,7 @@ function App() {
         </section>
       )}
     </main>
+    </>
   );
 }
 
