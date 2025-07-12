@@ -119,19 +119,26 @@ function App() {
               </tr>
             </thead>
             <tbody>
-              {results.map(({ store, price, image, url }) => (
-                <tr key={store} className="odd:bg-white even:bg-gray-50">
-                  <td className="px-4 py-2">
-                    <img src={image} alt={store} className="h-16 w-16 object-cover" />
-                  </td>
-                  <td className="px-4 py-2">
-                    <a href={url} className="text-blue-600 hover:underline">
-                      {store}
-                    </a>
-                  </td>
-                  <td className="px-4 py-2">{price}</td>
-                </tr>
-              ))}
+              {results.map(({ store, price, image, url }) => {
+                const numericPrice = Number(price.replace(/[^0-9]/g, ''));
+                const isMin = minPrice !== null && numericPrice === minPrice;
+                return (
+                  <tr
+                    key={store}
+                    className={`odd:bg-white even:bg-gray-50 ${isMin ? 'border-2 border-red-500 bg-red-50 text-red-600' : ''}`}
+                  >
+                    <td className="px-4 py-2">
+                      <img src={image} alt={store} className="h-16 w-16 object-cover" />
+                    </td>
+                    <td className="px-4 py-2">
+                      <a href={url} className="text-blue-600 hover:underline">
+                        {store}
+                      </a>
+                    </td>
+                    <td className="px-4 py-2">{price}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
           <div className="md:hidden space-y-3">
@@ -139,7 +146,12 @@ function App() {
               <a
                 href={url}
                 key={store}
-                className="flex items-center space-x-3 rounded border p-3"
+                className={`flex items-center space-x-3 rounded border p-3 ${
+                  minPrice !== null &&
+                  Number(price.replace(/[^0-9]/g, '')) === minPrice
+                    ? 'border-red-500 bg-red-50 text-red-600'
+                    : ''
+                }`}
               >
                 <img src={image} alt={store} className="h-12 w-12 object-cover" />
                 <div>
