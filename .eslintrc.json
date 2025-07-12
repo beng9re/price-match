@@ -14,5 +14,16 @@
     "react": {
       "version": "detect"
     }
+  },
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": [1, {"extensions": [".jsx", ".tsx"]}],
+    "import/extensions": "off",
+    "import/no-unresolved": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react/jsx-indent": "off",
+    "react/jsx-closing-tag-location": "off",
+    "object-curly-newline": "off",
+    "import/no-extraneous-dependencies": "off"
   }
 }
