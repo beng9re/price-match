@@ -1,25 +1,36 @@
-'use client'
-
-import { useState } from 'react'
+import { useState } from 'react';
 
 interface Result {
-  store: string
-  price: string
+  store: string;
+  price: string;
+  image: string;
 }
 
-export default function Home() {
-  const [query, setQuery] = useState('')
-  const [results, setResults] = useState<Result[] | null>(null)
+function App() {
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState<Result[] | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // 예시 데이터. 실제 서비스에서는 API 호출을 통해 가져옵니다.
+    e.preventDefault();
+    // Example data. In a real service, fetch from an API.
     setResults([
-      { store: '스토어A', price: '₩990,000' },
-      { store: '스토어B', price: '₩995,000' },
-      { store: '스토어C', price: '₩1,000,000' },
-    ])
-  }
+      {
+        store: '스토어A',
+        price: '₩990,000',
+        image: 'https://via.placeholder.com/100',
+      },
+      {
+        store: '스토어B',
+        price: '₩995,000',
+        image: 'https://via.placeholder.com/100',
+      },
+      {
+        store: '스토어C',
+        price: '₩1,000,000',
+        image: 'https://via.placeholder.com/100',
+      },
+    ]);
+  };
 
   return (
     <main className="p-8">
@@ -44,6 +55,9 @@ export default function Home() {
           <thead className="bg-gray-50">
             <tr>
               <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">
+                이미지
+              </th>
+              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">
                 스토어
               </th>
               <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">
@@ -52,8 +66,11 @@ export default function Home() {
             </tr>
           </thead>
           <tbody>
-            {results.map(({ store, price }) => (
+            {results.map(({ store, price, image }) => (
               <tr key={store} className="odd:bg-white even:bg-gray-50">
+                <td className="px-4 py-2">
+                  <img src={image} alt={store} className="h-16 w-16 object-cover" />
+                </td>
                 <td className="px-4 py-2">{store}</td>
                 <td className="px-4 py-2">{price}</td>
               </tr>
@@ -62,5 +79,7 @@ export default function Home() {
         </table>
       )}
     </main>
-  )
+  );
 }
+
+export default App;
