@@ -22,30 +22,40 @@ export default function Home() {
   }
 
   return (
-    <main style={{ padding: '2rem' }}>
-      <h1>가격 매칭</h1>
-      <p>상품 가격을 비교해 보세요.</p>
-      <form onSubmit={handleSubmit} style={{ marginBottom: '1rem' }}>
+    <main className="p-8">
+      <h1 className="mb-2 text-2xl font-bold">가격 매칭</h1>
+      <p className="mb-4 text-gray-600">상품 가격을 비교해 보세요.</p>
+      <form onSubmit={handleSubmit} className="mb-6 flex items-center space-x-2">
         <input
+          className="flex-grow rounded border px-3 py-2"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="상품명을 입력하세요"
         />
-        <button type="submit">검색</button>
+        <button
+          type="submit"
+          className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+        >
+          검색
+        </button>
       </form>
       {results && (
-        <table>
-          <thead>
+        <table className="min-w-full divide-y divide-gray-200 border">
+          <thead className="bg-gray-50">
             <tr>
-              <th>스토어</th>
-              <th>가격</th>
+              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">
+                스토어
+              </th>
+              <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">
+                가격
+              </th>
             </tr>
           </thead>
           <tbody>
             {results.map(({ store, price }) => (
-              <tr key={store}>
-                <td>{store}</td>
-                <td>{price}</td>
+              <tr key={store} className="odd:bg-white even:bg-gray-50">
+                <td className="px-4 py-2">{store}</td>
+                <td className="px-4 py-2">{price}</td>
               </tr>
             ))}
           </tbody>
